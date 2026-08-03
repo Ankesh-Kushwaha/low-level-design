@@ -1,11 +1,12 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+//abstraction for document element
 class DocumentElement{
    public:
      virtual string render() = 0;
 };
-
+//concrete implementation for textElement
 class TextElement:public DocumentElement{
   string txt;
   public:
@@ -17,7 +18,7 @@ class TextElement:public DocumentElement{
     return txt;
   }
 };
-
+//concrete implementation for ImageElement
 class ImageELement:public DocumentElement{
    string image;
    public:
@@ -29,7 +30,7 @@ class ImageELement:public DocumentElement{
      return "[Image:" + image + "]";
    }
 };
-
+//concrete implementation for newLine
 class newLine:public DocumentElement{
   public:
 
@@ -37,19 +38,19 @@ class newLine:public DocumentElement{
     return "\n";
   }
 };
-
+//concrete implementation for TabSpaceElement
 class TabSpaceElement:public DocumentElement{
   public:
   string render()override{
     return "\t";
   }
 };
-
+//Abtraction for the DataBase Persistance
 class Persistance{
    public:
      virtual void save(string data) = 0;
 };
-
+// concrete implementation for saveToFile;
 class saveToFile:public Persistance{
   public:
   void save(string data){
@@ -64,14 +65,14 @@ class saveToFile:public Persistance{
     }
   }
 };
-
+//concrete implementation for databse
 class saveToDataBase:public Persistance{
   public:
   void save(string data){
     cout << "data is successfully saved in database" << endl;
   }
 };
-
+// Document class responsible for holding a collection of elements;
 class Document{
   private:
     vector<DocumentElement *> document;
@@ -90,6 +91,7 @@ class Document{
   }
 };
 
+// documentEditor class managing client interactions
 class DocumentEditor{
   Document *doc;
   Persistance *storage;
